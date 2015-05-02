@@ -40,7 +40,7 @@ for the_file in os.listdir(TEMP_DIR):
     except Exception, error:
         pass
 
-FETCH_DIR = '/opt/Fetch'
+FETCH_DIR = '/opt/local/fetch'
 
 
 @APP.route('/')

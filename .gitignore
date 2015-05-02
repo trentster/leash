@@ -4,14 +4,12 @@ bin/
 build/
 config/host.*
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
 include/
 lib/python*
 parts/
-sdist/
 tmp2/
 var/
 *.egg-info/

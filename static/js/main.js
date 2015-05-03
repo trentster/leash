@@ -50,7 +50,7 @@ function set_hypervisor_keys(){
 
 function set_vm_keys(){
 
-	if (! $('#radioToggleNewKeyset').radio('isChecked')){
+	if ($('#radioToggleNewKeyset').radio('isChecked')){
 		postData = {
 				"type" : "vm_new"
 			};
@@ -126,12 +126,18 @@ function run_install(){
 					data: postData
 				})
 				.done(function(data) {
-					fifo_ip = $('#inputAdminNetAssignableStart').val()
-					newContent =
-						'<div> \
-								Installation is complete. To access your new Fifo install \
-								navigate to ' + fifo_ip + ' and login with admin/admin \
-							</div>';
+					newContent = ""
+					if (data.result == "ok"){
+						fifo_ip = $('#inputAdminNetAssignableStart').val()
+						newContent =
+							'<div> \
+									Installation is complete. To access your new Fifo install \
+									navigate to ' + fifo_ip + ' and login with admin/admin \
+								</div>';
+					}
+					else{
+						newContent = data
+					}
 					$('#installationProgress').html(newContent);
 				})
 				.fail(function() {

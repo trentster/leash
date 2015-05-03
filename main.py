@@ -75,6 +75,8 @@ def add_key():
     key_file.write(key)
     key_file.close()
 
+    os.chmod(file_name, 0600)
+
     return jsonify({'result': 'ok'})
 
 

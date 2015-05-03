@@ -301,8 +301,7 @@ def install_fifo():
                                     'transport=paramiko') == True:
         return "error - could not apply jingles role"
 
-        #  svcadm clear wiggle; svcadm enable wiggle
-        #pause for services to come online
+    # TODO: change from set time to a poll
     print 'Pausing for Fifo services to connect...'
     time.sleep(120)
 
@@ -351,6 +350,8 @@ def install_fifo():
     # add to fifo ring  - fabric
     # create fifo zones  - fifo
     # create leo cluster  - fifo
+
+
     print 'Configuring Fetch for Leo'
     leofs_manager_vars = {
         'leofs_cookie': leo_cookie,

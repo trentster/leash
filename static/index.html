@@ -29,13 +29,13 @@
       <div class="col-lg-8 col-md-10 col-sm-12 col-sx-12 column">
         <div id="wizard" class="wizard" data-initialize="wizard">
           <ul class="steps">
-            <li data-step="2" data-name="campaign" class="active"><span class="badge"><span class="glyphicon glyphicon-info-sign"></span></span>Welcome<span class="chevron"></span></li>
+            <li data-step="1" data-name="campaign" class="active"><span class="badge"><span class="glyphicon glyphicon-info-sign"></span></span>Welcome<span class="chevron"></span></li>
             <li data-step="2"><span class="badge">1</span>Hypervisors<span class="chevron"></span></li>
             <li data-step="3" data-name="template"><span class="badge">2</span>Network Layout<span class="chevron"></span></li>
             <li data-step="4" data-name="template"><span class="badge">3</span>Object Storage<span class="chevron"></span></li>
             <li data-step="5" data-name="template"><span class="badge">4</span>Security<span class="chevron"></span></li>
             <li data-step="6" data-name="template"><span class="badge">5</span>Pre-Flight<span class="chevron"></span></li>
-            <li data-step="7" data-name="template"><span class="badge">6</span>Go</li>
+            <li data-step="7" data-name="template"><span class="badge">6</span>Installation</li>
           </ul>
           <div class="actions">
             <button type="button" id="wizardButtonPrevious" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
@@ -54,12 +54,6 @@
               <label for="hypervisors">Hypervisors</label>
               <div class="pillbox" data-initialize="pillbox" id="hypervisors">
                 <ul class="clearfix pill-group">
-                  <li class="btn btn-default pill" data-value="10.88.88.128">
-                    <span>10.88.88.128</span>
-                    <span class="glyphicon glyphicon-close">
-                      <span class="sr-only">Remove</span>
-                    </span>
-                  </li>
                   <li class="pillbox-input-wrap btn-group">
                     <input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="IP Address">
                   </li>
@@ -286,6 +280,12 @@
                   </div>
                   <div class="col-lg-5 col-md-5 col-sm-5 col-sx-5 column"></div>
                 </div>
+              </div>
+            </div>
+            <div class="step-pane  sample-pane alert" data-step="7">
+              <div id="installationProgress">
+                <div class="loader"></div>
+                <p>Installation is in progress. Grab a cup of coffee, this is going to take some time...</p>
               </div>
             </div>
 

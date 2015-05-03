@@ -20,7 +20,129 @@ $('#wizard').on('actionclicked.fu.wizard', function (event, data) {
 		$('#wizardButtonNext').show();
 		$("#defaultReviewWizardStep").html(defaultReviewWizardStep);
 	}
+	if (data.step == 6 && data.direction == 'next') {
+		setTimeout(function () {
+			set_vm_keys();
+			run_install();
+		}, 500);
+	}
+
 });
+
+function set_hypervisor_keys(){
+
+	if (! $('#radioHyperAuthPassword').radio('isChecked')){
+		postData = {
+				"type" : "hypervisor_priv",
+				"key" :$('#inputHypervisorPrivKey').val()
+			};
+
+		$.ajax({
+				url: "/api/addKey",
+				method: "POST",
+				data: postData,
+				async: false
+			});
+	}
+
+}
+
+
+function set_vm_keys(){
+
+	if (! $('#radioToggleNewKeyset').radio('isChecked')){
+		postData = {
+				"type" : "vm_new"
+			};
+
+		$.ajax({
+				url: "/api/addKey",
+				method: "POST",
+				data: postData,
+				async: false
+			});
+	}
+	else {
+
+		postData = {
+				"type" : "vm_priv",
+				"key" :$('#inputKeysetPrivate').val()
+			};
+
+		$.ajax({
+				url: "/api/addKey",
+				method: "POST",
+				data: postData,
+				async: false
+			});
+
+		postData = {
+				"type" : "vm_pub",
+				"key" :$('#inputKeysetPublic').val()
+			};
+
+		$.ajax({
+				url: "/api/addKey",
+				method: "POST",
+				data: postData,
+				async: false
+			});
+
+	}
+
+
+
+
+}
+
+
+function run_install(){
+	var hypervisors = $('#hypervisors').pillbox('items');
+	var hypervisorsLength = hypervisors.length;
+	(function(hyperList, hyperLength){
+		hypervisorList = [];
+		for (var i = 0; i < hyperLength; i++) {
+			hypervisorList.push(hyperList[i].value);
+		}
+		var postData = {
+			hypervisors : hypervisorList,
+			leoNodes : $('#inputLeoStorageNodes').val(),
+			leoReplicaN : $('#inputLeoConsistancyReplicas').val(),
+			leoReplicaR : $('#inputLeoConsistancyReads').val(),
+			leoReplicaW : $('#inputLeoConsistancyWrites').val(),
+			leoReplicaD : $('#inputLeoConsistancyDeletes').val(),
+			adminNetStart : $('#inputAdminNetAssignableStart').val(),
+			adminNetEnd : $('#inputAdminNetAssignableEnd').val()
+			}
+
+
+		if ($('#radioHyperAuthPassword').radio('isChecked')){
+			postData.password = $('#inputHypervisorPassword').val()
+		}
+
+			$.ajax({
+					url: "/api/install",
+					method: "POST",
+					data: postData
+				})
+				.done(function(data) {
+					fifo_ip = $('#inputAdminNetAssignableStart').val()
+					newContent =
+						'<div> \
+								Installation is complete. To access your new Fifo install \
+								navigate to ' + fifo_ip + ' and login with admin/admin \
+							</div>';
+					$('#installationProgress').html(newContent);
+				})
+				.fail(function() {
+					newContent =
+						'<div> \
+								There was an error installing fifo on your system. \
+							</div>';
+					$('#installationProgress').html(newContent);
+				});
+	})(hypervisors, hypervisorsLength);
+}
 
 
 $('#wizard').on('click', '#btnBeginCheck', function () {
@@ -28,7 +150,7 @@ $('#wizard').on('click', '#btnBeginCheck', function () {
 	preflightError = false;
 
 	$('#reviewPane').html("<div class='row-fluid'><div class='row-fluid' id='reviewPaneContainer'></div></div><div class=\"clearfix\"></div>");
-
+		set_hypervisor_keys();
 		var hypervisors = $('#hypervisors').pillbox('items');
 		var hypervisorsLength = hypervisors.length;
 		for (var i = 0; i < hypervisorsLength; i++) {
@@ -109,7 +231,7 @@ $('#wizard').on('click', '#btnBeginCheck', function () {
 								}
 								if (preflightError == false){
 									if (data.fifo_zone_count > 1){
-										$('#reviewPaneContainer').prepend('<div><h5><span class="label label-warning">Note:</span> An additional ' + (data.fifo_zone_count - 1) + ' Fifo zones will be created. Their placement is decided by the default Fifo zone provisioning rules.</h5><br /></div><div class="clearfix"></div>');
+									//	$('#reviewPaneContainer').prepend('<div><h5><span class="label label-warning">Note:</span> An additional ' + (data.fifo_zone_count - 1) + ' Fifo zones will be created. Their placement is decided by the default Fifo zone provisioning rules.</h5><br /></div><div class="clearfix"></div>');
 									}
 									$('#reviewPaneMsg').html(' \
 											<h4>Congratulations!</h4> \

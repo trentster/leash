@@ -257,7 +257,7 @@ def install_fifo():
         TEMP_DIR + '/vm.pub')
 
     if not stick_actions.create_zone("root@" + fifo_1_placement,
-                                     '/tmp/1.fifo.json', False):
+                                     '/tmp/1.fifo.json'):
         print "There was an error createing the first machine."
         print "Aborting... Some changes possibly made to hypervisor: " + fifo_1_placement
         return "error - see logs"
@@ -401,7 +401,7 @@ def install_fifo():
         ['8.8.8.8', '8.8.4.4'],
         TEMP_DIR + '/vm.pub')
 
-    if not stick_actions.create_zone("root@" + leomngr_1_placement, '/tmp/1.manager.leofs', False):
+    if not stick_actions.create_zone("root@" + leomngr_1_placement, '/tmp/1.manager.leofs'):
         return "error - could not create 1.manager.leofs"
     print 'VM "1.manager.leofs" created on ' + leomngr_1_placement
 
@@ -425,7 +425,7 @@ def install_fifo():
         ['8.8.8.8', '8.8.4.4'],
         TEMP_DIR + '/vm.pub')
 
-    if not stick_actions.create_zone("root@" + leomngr_2_placement, '/tmp/2.manager.leofs', False):
+    if not stick_actions.create_zone("root@" + leomngr_2_placement, '/tmp/2.manager.leofs'):
         return "error - could not create 2.manager.leofs"
     print 'VM "2.manager.leofs" created on ' + leomngr_2_placement
 
@@ -470,7 +470,7 @@ def install_fifo():
         TEMP_DIR + '/vm.pub')
 
     if not stick_actions.create_zone("root@" + leogate_1_placement,
-                                     '/tmp/1.gateway.leofs', False):
+                                     '/tmp/1.gateway.leofs'):
         return "error - could not create 1.gateway.leofs"
     print 'VM "1.gateway.leofs" created on ' + leogate_1_placement
 
@@ -510,7 +510,7 @@ def install_fifo():
 
         if not (
                 stick_actions.create_zone("root@" + leostorage_placement,
-                                          '/tmp/' + node_name, False)):
+                                          '/tmp/' + node_name)):
             return "error - could not create " + node_name
         print 'VM "' + node_name + '" created on ' + leostorage_placement
         role_options = ('transport=paramiko nodename=storage' +

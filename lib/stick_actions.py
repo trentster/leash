@@ -139,7 +139,7 @@ def _check_admin_network_nic():
 #
 #==============================================================================
 
-def create_zone(host, vm_def, ds_update = True):
+def create_zone(host, vm_def, ds_update = False):
 	try:
 		if ds_update:
 			execute(_update_datasets, hosts=host)

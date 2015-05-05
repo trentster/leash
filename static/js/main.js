@@ -195,7 +195,7 @@ $('#wizard').on('click', '#btnBeginCheck', function () {
 							  data: postData
 							})
 							.done(function(data) {
-								$("[data-hypervisor='" + hypervisor + "'] [name='results']").html(drawResult(data.disk, data.mem, data.threads, data.has_admin, data.platform_image_ok))
+								$("[data-hypervisor='" + hypervisor + "'] [name='results']").html(drawResult(data.disk, data.mem, data.threads, data.has_admin, data.platform_image_ok, data.dns_lookup_ok))
 							})
 							.fail(function() {
 								preflightError = true;
@@ -397,11 +397,12 @@ function validateVMSecurityConfig (event){
 *******/
 
 
-function drawResult(disk, memory, processor, admin, platform){
+function drawResult(disk, memory, processor, admin, platform, dns_lookups){
 	return '<label>Disk Space:'+sp(2)+'</label><span class="pull-right">' + disk.value + badge(disk.status) + '</span><br /> \
 		<label>Total Memory:'+sp(2)+'</label><span class="pull-right">' + memory.value + badge(memory.status) + '</span><br /> \
 		<label>Processor Threads:'+sp(2)+'</label><span class="pull-right">' + processor.value + badge(processor.status) + '</span><br /> \
 		<label>Admin Network:'+sp(2)+'</label><span class="pull-right">' + admin.value + badge(admin.status) + '</span><br /> \
+		<label>DNS Resolves Correctly:'+sp(2)+'</label><span class="pull-right">' + dns_lookups.value + badge(dns_lookups.status) + '</span><br />
 		<label>Tested Platform Image:'+sp(2)+'</label><span class="pull-right">' + platform.value + badge(platform.status) + '</span><br />'
 }
 

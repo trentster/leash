@@ -98,6 +98,7 @@ def interrogate_hypervisor():
     return_mem = {}
     return_has_admin = {}
     return_platform_image_ok = {}
+    return_dns_lookup_ok = {}
     return_threads = {}
 
     return_disk['value'] = str(profile_results['disk']) + 'G'
@@ -118,6 +119,12 @@ def interrogate_hypervisor():
     else:
         return_has_admin['status'] = 'error'
 
+    return_dns_lookup_ok['value'] = profile_results['dns_lookup_ok']
+    if profile_results["dns_lookup_ok"] == True:
+        return_dns_lookup_ok['status'] = 'ok'
+    else:
+        return_dns_lookup_ok['status'] = 'error'
+
     return_platform_image_ok['value'] = profile_results['platform_image_ok']
     if profile_results["platform_image_ok"] == True:
         return_platform_image_ok['status'] = 'ok'
@@ -127,10 +134,15 @@ def interrogate_hypervisor():
     return_threads['value'] = profile_results['threads']
     return_threads['status'] = 'ok'
 
+    return_threads['value'] = profile_results['threads']
+    return_threads['status'] = 'ok'
+
+
 
     return_val['disk'] = return_disk
     return_val['mem'] = return_mem
     return_val['has_admin'] = return_has_admin
+    return_val['return_dns_lookup_ok'] = return_dns_lookup_ok
     return_val['platform_image_ok'] = return_platform_image_ok
     return_val['threads'] = return_threads
     return_val['result'] = "ok"

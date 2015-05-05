@@ -41,9 +41,9 @@ def profile_host(user, auth_type, authenticator, host):
 	disk_free_result = execute(_check_disk_free, hosts=host)
 	admin_net_result = execute(_check_admin_network, hosts=host)
 	platform_image_ok = execute(_check_platform_image, hosts=host)
+	dns_lookup_ok = execute(_check_ip_lookup, host, hosts=host)
 
-
-	return {"result": "ok", "host": host, "mem": mem_result[host], "threads": threads_result[host], "disk": disk_free_result[host], "has_admin": admin_net_result[host], "platform_image_ok": platform_image_ok[host] }
+	return {"result": "ok", "host": host, "mem": mem_result[host], "threads": threads_result[host], "disk": disk_free_result[host], "has_admin": admin_net_result[host], "platform_image_ok": platform_image_ok[host], "dns_lookup_ok": dns_lookup_ok[host] }
 
 
 def _check_mem_advail():
@@ -131,6 +131,16 @@ def _check_admin_network_nic():
 		else:
 			return False
 
+def _check_ip_lookup(ipaddress):
+	with settings(
+		hide('warnings', 'running', 'stdout', 'stderr'),
+		warn_only=True
+	):
+		result = run('nslookup ' + ipaddress + '.xip.io | grep Address | tail -1 | awk \'{print $2}\'')
+		if result == ipaddress:
+		 	return True
+		else:
+			return False
 
 
 #==============================================================================

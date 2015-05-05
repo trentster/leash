@@ -367,7 +367,7 @@ function validateLeoConfig (event){
 		return;
 	}
 
-	if ( (!isInt(nodes)) || nodes < 1 || $('#hypervisors').pillbox('itemCount') < nodes) {
+	if ( (!isInt(nodes)) || nodes < 1 || $('#hypervisors').pillbox('itemCount') < nodes || replicas > nodes) {
 		shakeElement($('#inputLeoStorageNodes'));
 		event.preventDefault();
 		return;

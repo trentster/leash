@@ -273,24 +273,6 @@ def install_fifo():
 
     print 'Installing fifo on vm'
 
-    if not stick_actions.apply_role(FETCH_DIR, "fifo-sniffle",
-                                    str(assignableIpRange[0]),
-                                    TEMP_DIR + '/vm.key',
-                                    'transport=paramiko') == True:
-        return "error - could not apply sniffle role"
-
-    if not stick_actions.apply_role(FETCH_DIR, "fifo-snarl",
-                                    str(assignableIpRange[0]),
-                                    TEMP_DIR + '/vm.key',
-                                    'transport=paramiko') == True:
-        return "error - could not apply snarl role"
-
-    if not stick_actions.apply_role(FETCH_DIR, "fifo-howl",
-                                    str(assignableIpRange[0]),
-                                    TEMP_DIR + '/vm.key',
-                                    'transport=paramiko') == True:
-        return "error - could not apply howl role"
-
     if not stick_actions.apply_role(FETCH_DIR, "fifo-wiggle",
                                     str(assignableIpRange[0]),
                                     TEMP_DIR + '/vm.key',
@@ -303,9 +285,30 @@ def install_fifo():
                                     'transport=paramiko') == True:
         return "error - could not apply jingles role"
 
+    if not stick_actions.apply_role(FETCH_DIR, "fifo-howl",
+                                    str(assignableIpRange[0]),
+                                    TEMP_DIR + '/vm.key',
+                                    'transport=paramiko') == True:
+        return "error - could not apply howl role"
+
+    if not stick_actions.apply_role(FETCH_DIR, "fifo-sniffle",
+                                    str(assignableIpRange[0]),
+                                    TEMP_DIR + '/vm.key',
+                                    'transport=paramiko') == True:
+        return "error - could not apply sniffle role"
+
+    if not stick_actions.apply_role(FETCH_DIR, "fifo-snarl",
+                                    str(assignableIpRange[0]),
+                                    TEMP_DIR + '/vm.key',
+                                    'transport=paramiko') == True:
+        return "error - could not apply snarl role"
+
+
+
+
     # TODO: change from set time to a poll
     print 'Pausing for Fifo services to connect...'
-    time.sleep(120)
+    time.sleep(20)
 
     print 'Creating admin user in Fifo...'
     stick_actions.create_fifo_user(str(assignableIpRange[0]),

@@ -1,2 +1,2 @@
 #!/usr/bin/sh
-/opt/local/bin/python main.py &> /var/log/leash/leash.log
+/opt/local/bin/python main.py >> /var/log/leash/leash.log 2>&1

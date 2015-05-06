@@ -142,7 +142,7 @@ def interrogate_hypervisor():
     return_val['disk'] = return_disk
     return_val['mem'] = return_mem
     return_val['has_admin'] = return_has_admin
-    return_val['return_dns_lookup_ok'] = return_dns_lookup_ok
+    return_val['dns_lookup_ok'] = return_dns_lookup_ok
     return_val['platform_image_ok'] = return_platform_image_ok
     return_val['threads'] = return_threads
     return_val['result'] = "ok"

@@ -402,7 +402,7 @@ function drawResult(disk, memory, processor, admin, platform, dns_lookups){
 		<label>Total Memory:'+sp(2)+'</label><span class="pull-right">' + memory.value + badge(memory.status) + '</span><br /> \
 		<label>Processor Threads:'+sp(2)+'</label><span class="pull-right">' + processor.value + badge(processor.status) + '</span><br /> \
 		<label>Admin Network:'+sp(2)+'</label><span class="pull-right">' + admin.value + badge(admin.status) + '</span><br /> \
-		<label>DNS Resolves Correctly:'+sp(2)+'</label><span class="pull-right">' + dns_lookups.value + badge(dns_lookups.status) + '</span><br />
+		<label>DNS Resolves Correctly:'+sp(2)+'</label><span class="pull-right">' + dns_lookups.value + badge(dns_lookups.status) + '</span><br /> \
 		<label>Tested Platform Image:'+sp(2)+'</label><span class="pull-right">' + platform.value + badge(platform.status) + '</span><br />'
 }
 

@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+$(which python) log-socket.py /bin/sh -c "/usr/bin/tail -f /var/svc/log/site-leash:default.log"

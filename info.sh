@@ -3,13 +3,10 @@ ZONEIP=`ifconfig | grep inet | grep -v '127.0.0.1' | grep -v '\:\:1/128' | awk '
 cat <<EOL
 Zone prep complete!
 ***************************************************
-* To begin install:                               *
-*   zlogin $VMUUID   *
-*   cd /opt/local/leash                           *
-*   python main.py                                *
+* To begin install navigate to:                   *
 *                                                 *
 * Then in your browser navigate to:               *
-*   http://$ZONEIP:5000                        *
+*   http://$ZONEIP:5000                       *
 *                                                 *
 ***************************************************
 EOL

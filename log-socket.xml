@@ -4,7 +4,7 @@
         Created by Manifold
 --><service_bundle type="manifest" name="log-socket">
 
-    <service name="site/log-socket" type="service" version="0.6.1-1">
+    <service name="site/log-socket" type="service" version="0.6.1-5">
 
         <create_default_instance enabled="false"/>
 

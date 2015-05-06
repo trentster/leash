@@ -4,7 +4,7 @@
         Created by Manifold
 --><service_bundle type="manifest" name="leash">
 
-    <service name="site/leash" type="service" version="0.6.1-1">
+    <service name="site/leash" type="service" version="0.6.1-5">
 
         <create_default_instance enabled="false"/>
 
@@ -23,7 +23,7 @@
             <method_credential user="leash" group="leash"/>
         </method_context>
 
-        <exec_method type="method" name="start" exec="/opt/local/bin/python main.py 2>&1" timeout_seconds="60"/>
+        <exec_method type="method" name="start" exec="/opt/local/leash/leash" timeout_seconds="60"/>
 
         <exec_method type="method" name="stop" exec=":kill" timeout_seconds="60"/>
 

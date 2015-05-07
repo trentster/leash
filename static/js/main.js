@@ -22,6 +22,10 @@ $('#wizard').on('actionclicked.fu.wizard', function (event, data) {
 	}
 	if (data.step == 6 && data.direction == 'next') {
 		setTimeout(function () {
+			window.webSocket = new WebSocket("ws://localhost:9000");
+			window.webSocket.onmessage = function(e) {
+        $("#leash-log-viewer").append(e.data + '<br />');
+      }
 			set_vm_keys();
 			run_install();
 		}, 500);
@@ -146,6 +150,9 @@ function run_install(){
 								There was an error installing fifo on your system. \
 							</div>';
 					$('#installationProgress').html(newContent);
+				})
+				.always(function(){
+					window.webSocket = null;
 				});
 	})(hypervisors, hypervisorsLength);
 }

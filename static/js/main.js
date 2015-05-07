@@ -22,7 +22,8 @@ $('#wizard').on('actionclicked.fu.wizard', function (event, data) {
 	}
 	if (data.step == 6 && data.direction == 'next') {
 		setTimeout(function () {
-			window.webSocket = new WebSocket("ws://localhost:9000");
+			l - window.location
+			window.webSocket = new WebSocket("ws://" + l.hostname + ":9000");
 			window.webSocket.onmessage = function(e) {
         $("#leash-log-viewer").append(e.data + '<br />');
       }

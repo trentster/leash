@@ -22,10 +22,13 @@ $('#wizard').on('actionclicked.fu.wizard', function (event, data) {
 	}
 	if (data.step == 6 && data.direction == 'next') {
 		setTimeout(function () {
-			l - window.location
-			window.webSocket = new WebSocket("ws://" + l.hostname + ":9000");
+			l = window.location
+			window.webSocket = new WebSocket("ws://" + l.hostname + ":9010");
 			window.webSocket.onmessage = function(e) {
-        $("#leash-log-viewer").append(e.data + '<br />');
+				newtext = ansispan(e.data.replace(/(?:\r\n|\r|\n)/g, '<br />'));
+        $("#leash-log-viewer").append(newtext);
+				var objDiv = document.getElementById("leash-log-viewer");
+				objDiv.scrollTop = objDiv.scrollHeight;
       }
 			set_vm_keys();
 			run_install();

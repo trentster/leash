@@ -149,7 +149,7 @@ def _check_ip_lookup(ipaddress):
 #
 #==============================================================================
 
-def create_zone(host, vm_def, ds_update = False):
+def create_zone(host, vm_def, ds_update = True):
 	try:
 		if ds_update:
 			execute(_update_datasets, hosts=host)

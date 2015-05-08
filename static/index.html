@@ -284,11 +284,10 @@
             </div>
             <div class="step-pane  sample-pane alert" data-step="7">
               <div id="installationProgress">
-                <div id="leash-log-viewer">
-                  <h3>Server Logs:</h3>
-                </div>
-                <div class="loader"></div>
-                <p>Installation is in progress. Grab a cup of coffee, this is going to take some time...</p>
+                <div class="loader" style="margin-left: auto; margin-right: auto;"></div>
+              </div>
+              <div id="leash-log-viewer" style="height: 300px; overflow: scroll;">
+                <h3>Server Logs:</h3>
               </div>
             </div>
 
@@ -308,6 +307,7 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/fuelux/dist/js/fuelux.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/ansispan.js"></script>
 
   </body>
 </html>

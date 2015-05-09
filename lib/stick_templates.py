@@ -1,4 +1,6 @@
 import stick_const
+import os
+
 #def generate_vm(resolvers, nic_tag, ip, gateway, netmask, ssh_key):
 # def generate_vm(alias, resolvers, vlan_id, ip_address, gateway, netmask, pub_key_path):
 # 	fname = 'tmp/fifo_vm.json'
@@ -61,7 +63,7 @@ def zone_definition(output_file = 'vm.json', mem = 1024, cpu = 100, disk = 10, a
 
 
 def pyfi_config(fifo_node, user, password):
-	output_file = '/root/.fifo'
+	output_file = os.getenv("HOME") + '/.fifo'
 	with open(output_file, 'w') as fout:
 		fout.write('[GENERAL]\n')
 		fout.write('active = fifo_default\n\n')

@@ -21,6 +21,8 @@ $('#wizard').on('actionclicked.fu.wizard', function (event, data) {
 		$("#defaultReviewWizardStep").html(defaultReviewWizardStep);
 	}
 	if (data.step == 6 && data.direction == 'next') {
+		$('.steps').hide();
+		$('.actions').hide();
 		setTimeout(function () {
 			l = window.location
 			window.webSocket = new WebSocket("ws://" + l.hostname + ":9010");

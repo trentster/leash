@@ -1,4 +1,7 @@
 #!/usr/bin/sh
 export PYTHONUNBUFFERED=1
 export ANSIBLE_FORCE_COLOR=1
+export PATH=/usr/local/sbin:/usr/local/bin:/opt/local/sbin:/opt/local/bin:/usr/sbin:/usr/bin:/sbin
+export HOME=/leash
+cd /opt/local/leash
 /opt/local/bin/python main.py >> /var/log/leash/leash.log 2>&1

@@ -484,21 +484,6 @@ def install_fifo():
         ['8.8.8.8', '8.8.4.4'],
         TEMP_DIR + '/vm.pub')
 
-    if not stick_actions.create_zone("root@" + leogate_1_placement,
-                                     '/tmp/1.gateway.leofs'):
-        return "error - could not create 1.gateway.leofs"
-    print 'VM "1.gateway.leofs" created on ' + leogate_1_placement
-
-    print 'Applying roles to LeoFS gateway'
-    if not (
-            stick_actions.apply_role(
-                FETCH_DIR,
-                "leofs-gateway",
-                str(assignableIpRange[3]),
-                TEMP_DIR + '/vm.key',
-                'transport=paramiko nodename=gateway0@' + str(assignableIpRange[3]))
-        ) == True:
-        return "error - could not apply Leofs gateway role to gateway 0"
 
     leo_vm_iterator = 0
     while leo_vm_iterator < int(leoNodeCount):
@@ -552,6 +537,24 @@ def install_fifo():
         ) == True:
         return "error - could not start Leofs storage ring"
 
+
+    if not stick_actions.create_zone("root@" + leogate_1_placement,
+                                     '/tmp/1.gateway.leofs'):
+        return "error - could not create 1.gateway.leofs"
+    print 'VM "1.gateway.leofs" created on ' + leogate_1_placement
+
+    print 'Applying roles to LeoFS gateway'
+    if not (
+            stick_actions.apply_role(
+                FETCH_DIR,
+                "leofs-gateway",
+                str(assignableIpRange[3]),
+                TEMP_DIR + '/vm.key',
+                'transport=paramiko nodename=gateway0@' + str(assignableIpRange[3]))
+        ) == True:
+        return "error - could not apply Leofs gateway role to gateway 0"
+
+        
     print 'Configuring Fifo to use LeoFS...'
     if not (
             stick_actions.init_fifo_leofs(

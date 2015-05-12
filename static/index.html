@@ -1,305 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fifo Install</title>
+    <title>Fifo Installer</title>
     <!-- CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="bower_components/fuelux/dist/css/fuelux.min.css" rel="stylesheet">
     <link href="css/leash.css" rel="stylesheet">
-  </head>
-  <body class="fuelux">
+</head>
 
+<body class="fuelux">
     <div class="container-full">
-      <div class="col-lg-2 col-md-1 col-sm-12 col-sx-12 column">&nbsp;</div>
-      <div class="col-lg-8 col-md-10 col-sm-12 col-sx-12 column" style="text-align:center;">
-          <img style="height:100px; display:block; margin:auto; margin-top:25px;" src="img/installer-logo.png">
-          <h3>Leash - <i>The Project Fifo Installer</i></h3>
-      </div>
-      <div class="col-lg-2 col-md-1 col-sm-12 col-sx-12 column">&nbsp;</div>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div class="container-full">
-      <div class="col-lg-2 col-md-1 col-sm-12 col-sx-12 column">&nbsp;</div>
-      <div class="col-lg-8 col-md-10 col-sm-12 col-sx-12 column">
-        <div id="wizard" class="wizard" data-initialize="wizard">
-          <ul class="steps">
-            <li data-step="1" data-name="campaign" class="active"><span class="badge"><span class="glyphicon glyphicon-info-sign"></span></span>Welcome<span class="chevron"></span></li>
-            <li data-step="2"><span class="badge">1</span>Hypervisors<span class="chevron"></span></li>
-            <li data-step="3" data-name="template"><span class="badge">2</span>Network Layout<span class="chevron"></span></li>
-            <li data-step="4" data-name="template"><span class="badge">3</span>Object Storage<span class="chevron"></span></li>
-            <li data-step="5" data-name="template"><span class="badge">4</span>Security<span class="chevron"></span></li>
-            <li data-step="6" data-name="template"><span class="badge">5</span>Pre-Flight<span class="chevron"></span></li>
-            <li data-step="7" data-name="template"><span class="badge">6</span>Installation</li>
-          </ul>
-          <div class="actions">
-            <button type="button" id="wizardButtonPrevious" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
-          </div>
-
-          <div class="step-content">
-            <div class="step-pane  sample-pane alert" data-step="1">
-              <h4>Welcome to the Project Fifo Installer</h4>
-              <p>Project FiFo is an open-source Cloud Management and Orchestration system for SmartOS virtualization environments.</p>
-            </div>
-
-
-            <div class="step-pane active sample-pane alert" data-step="2">
-              <h4>Hypervisors</h4>
-
-              <label for="hypervisors">Hypervisors</label>
-              <div class="pillbox" data-initialize="pillbox" id="hypervisors">
-                <ul class="clearfix pill-group">
-                  <li class="pillbox-input-wrap btn-group">
-                    <input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="IP Address">
-                  </li>
-                </ul>
-              </div>
-              <br />
-              <div>
-                <span style="font-weight: 700;">How do you authenticate to your hypervisors?</span>
-                <div class="radio" data-initialize="radio" id="radioHyperAuthPassword">
-                  <label class="radio-custom">
-                    <input class="sr-only"  checked="checked" data-toggle=".radioTogglePassword" name="hyperAuthRadio" type="radio" value="password">
-                    Password
-                  </label>
-                </div>
-
-                <div class="radio" data-initialize="radio" id="radioHyperAuthSSH">
-                  <label class="radio-custom">
-                    <input class="sr-only" data-toggle=".radioToggleSSH" name="hyperAuthRadio" type="radio" value="sshkey">
-                    SSH Key
-                  </label>
-                </div>
-              </div>
-
-              <div class="radioTogglePassword">
-                <label for="inputHypervisorPassword">Password</label>
-                <input type="password" class="form-control" id="inputHypervisorPassword" placeholder="Password">
-              </div>
-
-              <div class="radioToggleSSH">
-                <label for="inputHypervisorPrivKey">SSH Key</label>
-                <textarea rows="10" class="form-control" id="inputHypervisorPrivKey" placeholder="Private SSH Key"></textarea>
-              </div>
-
-            </div>
-
-            <div class="step-pane sample-pane alert" data-step="3">
-              <h4>Network Layout</h4>
-              <div>
-                It is recommended that you run an "Admin Network" that is used only for
-                command/control communications. Becasue this network will need to allow Fifo
-                traffic we will need some information on it. <br /><br />
-                When a network is created for Fifo it expects to be able to assign every IP
-                address in the given range. Fifo does not do DHCP (which is likely how you
-                are booting SmartOS). For these reasons it is important to give some thought
-                to your network layout. The hypervisors need to be on the same subnet as the
-                Fifo nodes, but for orginzation purposes it is nice to keep groups of at least
-                /24. A nice way to deal with this is to use a /23 subnet and give the first
-                254 (a.b.c.1 used for gateway) for hypervisors and the second 254 (a.b.d.255
-                is used for broadcast) for Fifo, and other management tools. Obviously how
-                you organize things is up to you, but you must be careful to not have the
-                same addresses handed out twice.
-                <br /><br />
-                <img style="display:block; margin:auto;" src="img/NetworkDiagram.png">
-                <br /><br />
-
-                 <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-12 col-sx-12 column">
-                    <div class="panel panel-success" style="max-width:400px;">
-                      <div class="panel-heading">
-                        <h3 class="panel-title">Gathered Facts</h3>
-                      </div>
-                      <div class="panel-body" style="background: #f9f9f9!important;">
-                        <label for="adminNetNetwork">Admin Network</label>
-                        <input id="adminNetNetwork" type="text" class="form-control dropdown-toggle" disabled placeholder="Network" >
-                        <label for="adminNetGateway">Admin Network Gateway</label>
-                        <input id="adminNetGateway" type="text" class="form-control dropdown-toggle" disabled placeholder="Gateway">
-                        <label for="adminNetNetmask">Admin Network Subnet Mask</label>
-                        <input id="adminNetNetmask" type="text" class="form-control dropdown-toggle" disabled placeholder="Subnet Mask">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-12 col-sx-12 column">
-                    <div class="panel panel-primary" style="max-width:400px;">
-                      <div class="panel-heading">
-                        <h3 class="panel-title">User Defined Settings</h3>
-                      </div>
-                      <div class="panel-body" style="background: #f9f9f9!important;">
-                        <label for="inputAdminNetAssignableStart">Admin Network Assignable Start</label>
-                        <input id="inputAdminNetAssignableStart" type="text" class="form-control dropdown-toggle" placeholder="Start">
-                        <label for="inputAdminNetAssignableEnd">Admin Network Assignable End</label>
-                        <input id="inputAdminNetAssignableEnd" type="text" class="form-control dropdown-toggle" placeholder="End">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-
-
-            <div class="step-pane sample-pane alert" data-step="4">
-              <h4>LeoFS - The Lion of Storage</h4>
-              <div>
-                Project Fifo uses LeoFS as a central object based file system. LeoFS is an
-                unstructured object storage for the web and a highly available, distributed,
-                eventually consistent storage system. Project Fifo use LeoFS for storing VM
-                datasets, snapshots and backups
-                <br /><br />
-                <img style="height:350px; display:block; margin:auto;" src="img/leofs-logo-blk-2.png">
-                <br /><br />
-                <h4>LeoFS Consistency</h4>
-                It is very important to understand the following settings. Once set they can <b>never</b> be changed.
-                <br /><br />
-                <ul style="list-style-type: none; padding:0px; margin:0;">
-                  <li><b>Replicas (N)</b> - The total number of replicas of each file the LeoFS will store. Storage space requirements will be equal to number of replicas multiplied by total of file sizes. A 1G file will take 3G on disk when using a replica setting of 3.</li>
-                  <li><b>Read Replicas (R)</b> - The number of replicas needed for a successful READ operation.</li>
-                  <li><b>Write Replicas (W)</b> - The number of replicas needed for a successful WRITE operation.</li>
-                  <li><b>Delete Replicas (D)</b> - The number of replicas needed for a successful DELETE operation.</li>
-                </ul>
-                <br /><br />
-                <div style="max-width:400px; margin:auto;">
-                  <table class="table table-striped" >
-                    <thead>
-                      <tr>
-                        <th>Consistency Level</th> <th>N</th> <th>R</th> <th>W</th> <th>D</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="active">
-                        <th>Single Server</th> <td>1</td> <td>1</td> <td>1</td> <td>1</td>
-                      </tr>
-                      <tr>
-                        <th>Low</th> <td>3</td> <td>1</td> <td>1</td> <td>1</td>
-                      </tr>
-                      <tr class="active">
-                        <th>Medium</th> <td>3</td> <td>1</td> <td>2</td> <td>2</td>
-                      </tr>
-                      <tr>
-                        <th>High</th> <td>3</td> <td>1</td> <td>3</td> <td>3</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <i>Single Server</i> settings should only be used when you intend on only having a single LeoFS and <b>never</b> expanding your cluster.
-                </div>
-                <br /><br />
-                <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">Replicas (N)</div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">Read Replicas (R)</div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">Write Replicas (W)</div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">Delete Replicas (D)</div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">
-                    <input id="inputLeoConsistancyReplicas" type="number" value="3">
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">
-                    <input id="inputLeoConsistancyReads" type="number" value="1">
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">
-                    <input id="inputLeoConsistancyWrites" type="number" value="2">
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">
-                    <input id="inputLeoConsistancyDeletes" type="number" value="2">
-                  </div>
-                </div>
-                <br />
-                <br />
-                <h4>LeoFS Storage Nodes</h4>
-                <p>It is required to have at least one storage node. You may not have more storage nodes than you have hypervisors. Ideally the number of storage nodes is equal to or greater than the number of replicas stored, but this is not enforced.</p>
-
-                <div class="row">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-sx-5 column"><label for="inputLeoStorageNodes">Number of LeoFS Storage Nodes</label></div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column"><input id="inputLeoStorageNodes" type="number" value="1"></div>
-                  <div class="col-lg-4 col-md-4 col-sm-4 col-sx-4 column"></div>
-                </div>
-
-              </div>
-            </div>
-            <div class="step-pane  sample-pane alert" data-step="5">
-              <h4>Zone Security</h4>
-              <p>In order to provision roles to newly created zones Leash needs a way to login.
-              You can provide an ssh keyset (both public and private) or a keyset can be
-              generated for you. If you have an existing keyset you may choose to use it, which
-              will allow you to continue to login to the newly created zone via SSH after this
-              installer completes. If you choose to have Leash create a keyset for you it will be
-              destroyed and you will either have to add a public key to your Fifo user account,
-              or login to zones via zlogin.</p>
-
-              <div>
-                <span style="font-weight: 700;">How do you authenticate to your hypervisors?</span>
-                <div class="radio" data-initialize="radio" id="radioVMKeysetNew">
-                  <label class="radio-custom">
-                    <input class="sr-only"  data-toggle=".radioToggleNewKeyset" checked="checked" name="radioVMKeysetType" type="radio" value="newKeyset">
-                    Generate New Keyset
-                  </label>
-                </div>
-
-                <div class="radio" data-initialize="radio" id="radioVMKeysetExisting">
-                  <label class="radio-custom">
-                    <input class="sr-only" data-toggle=".radioToggleExistingKeyset" name="radioVMKeysetType" type="radio" value="existingKeyset">
-                    Use Existing Keyset
-                  </label>
-                </div>
-              </div>
-
-              <div class="radioToggleExistingKeyset">
-                <br />
-                <label for="inputKeysetPrivate">Private Key</label>
-                <textarea rows="10" class="form-control" id="inputKeysetPrivate" placeholder="Private SSH Key"></textarea>
-                <br />
-                <label for="inputKeysetPrivate">Public Key</label>
-                <textarea rows="10" class="form-control" id="inputKeysetPublic" placeholder="Public SSH Key"></textarea>
-              </div>
-
-              <div class="radioToggleNewKeyset">
-              </div>
-            </div>
-
-            <div class="step-pane  sample-pane alert" data-step="6" id="defaultReviewWizardStep">
-              <div id="reviewPaneMsg">
-                <h4>Pre Installation Check</h4>
-                <p>Based on the information you have provided Leash will now login to each hypervisor to
-                  check for communication and minimum requirements. If you at this point entered a private
-                  SSH key for your hypervisors it will be written to disk in the zone created for installation.
-                  <b>No changes will be made to your hypervisors.</b></p>
-              </div>
-              <div id="reviewPane">
-                <br>
-                <div class="row">
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-sx-5 column"></div>
-                  <div class="col-lg-2 col-md-2 col-sm-2 col-sx-2 column">
-                    <button type="button" id="btnBeginCheck" class="btn btn-default">Begin Check</button>
-                  </div>
-                  <div class="col-lg-5 col-md-5 col-sm-5 col-sx-5 column"></div>
-                </div>
-              </div>
-            </div>
-            <div class="step-pane  sample-pane alert" data-step="7">
-              <div id="installationProgress" style="font-weight: bold;">
-                <div class="loader" style="margin-left: auto; margin-right: auto;"></div>
-              </div>
-              <div id="leash-log-viewer" style="height: 300px; overflow: scroll;">
-                <h3>Server Logs:</h3>
-              </div>
-            </div>
-
-
-            <div class="actions pull-right">
-              <button type="button" id="wizardButtonNext" class="btn btn-default btn-next" data-last="Install">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
-            </div>
-          </div>
+        <div class="column leashtitle" style="text-align:center;">
+            <img style="height:100px; display:block; margin:auto; margin-top:25px;" src="img/installer-logo.png">
+            <h3><span>Leash</span> - <i>The Project Fifo Installer</i></h3>
         </div>
-      </div>
-      <div class="col-lg-2 col-md-1 col-sm-12 col-sx-12 column">&nbsp;</div>
     </div>
-
+    <div class="clearfix"></div>
+    <div class="container-full">
+        <div class="col-lg-2 col-md-1 col-sm-12 col-sx-12 column">&nbsp;</div>
+        <div class="col-lg-8 col-md-10 col-sm-12 col-sx-12 column">
+            <div id="wizard" class="wizard" data-initialize="wizard">
+                <ul class="steps">
+                    <li data-step="1" data-name="campaign" class="active"><span class="badge"><span class="glyphicon glyphicon-info-sign"></span></span>Welcome<span class="chevron"></span></li>
+                    <li data-step="2"><span class="badge">1</span>Hypervisors<span class="chevron"></span></li>
+                    <li data-step="3" data-name="template"><span class="badge">2</span>Network Layout<span class="chevron"></span></li>
+                    <li data-step="4" data-name="template"><span class="badge">3</span>Object Storage<span class="chevron"></span></li>
+                    <li data-step="5" data-name="template"><span class="badge">4</span>Security<span class="chevron"></span></li>
+                    <li data-step="6" data-name="template"><span class="badge">5</span>Pre-Flight<span class="chevron"></span></li>
+                    <li data-step="7" data-name="template"><span class="badge">6</span>Installation</li>
+                </ul>
+                <div class="actions">
+                    <button type="button" id="wizardButtonPrevious" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+                </div>
+                <div class="step-content">
+                    <div class="step-pane  sample-pane alert" data-step="1">
+                        <h4>Welcome to the Project Fifo Installer</h4>
+                        <p>Project FiFo is an open-source Cloud Management and Orchestration system for SmartOS virtualization environments.</p>
+                    </div>
+                    <div class="step-pane active sample-pane alert" data-step="2">
+                        <h4 class="myheadmid">Hypervisors</h4>
+                        <label for="hypervisors">Hypervisors</label>
+                        <div class="pillbox" data-initialize="pillbox" id="hypervisors">
+                            <ul class="clearfix pill-group">
+                                <li class="pillbox-input-wrap btn-group">
+                                    <input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="IP Address">
+                                </li>
+                            </ul>
+                        </div>
+                        <br />
+                        <div>
+                            <span style="font-weight: 700;">How do you authenticate to your hypervisors?</span>
+                            <div class="radio" data-initialize="radio" id="radioHyperAuthPassword">
+                                <label class="radio-custom">
+                                    <input class="sr-only" checked="checked" data-toggle=".radioTogglePassword" name="hyperAuthRadio" type="radio" value="password"> Password
+                                </label>
+                            </div>
+                            <div class="radio" data-initialize="radio" id="radioHyperAuthSSH">
+                                <label class="radio-custom">
+                                    <input class="sr-only" data-toggle=".radioToggleSSH" name="hyperAuthRadio" type="radio" value="sshkey"> SSH Key
+                                </label>
+                            </div>
+                        </div>
+                        <div class="radioTogglePassword">
+                            <label for="inputHypervisorPassword">Password</label>
+                            <input type="password" class="form-control" id="inputHypervisorPassword" placeholder="Password">
+                        </div>
+                        <div class="radioToggleSSH">
+                            <label for="inputHypervisorPrivKey">SSH Key</label>
+                            <textarea rows="10" class="form-control" id="inputHypervisorPrivKey" placeholder="Private SSH Key"></textarea>
+                        </div>
+                    </div>
+                    <div class="step-pane sample-pane alert" data-step="3">
+                        <h4 class="myheadmid">Network Layout</h4>
+                        <div>
+                            <p>It is recommended that you run a dedicated "Admin Network" that is used exclusively for command and control communications. As this network carries Fifo traffic we will need some additional information for it.</p>
+                            <p>FiFo requires a dedicated range of ip addresses that it hands out during machine creation. As such, it expects exclusive control of every IP address in its dedicated range. For these reasons it is important to give some thought to your network layout. The hypervisors need to reside on the same subnet as the FiFo nodes.</p>
+                            <p>A useful setup for organizational purposes, is to assign groups of at least "/24" or 254 usable ip addresses. A nice way to handle this is to use a /23 subnet (255.255.254.0) which will give you 2 Class C Blocks (2 x 254 IP Addresses). The <strong>first</strong> 254 (a.b.c.1) is used for the gateway for hypervisors and the <strong>second</strong> 254 (a.b.d.255) is used for broadcast for Fifo, and other management tools. Obviously how you organize things is up to you, but you must be very careful that you do not hand the same addresses out twice.</p>
+                            <img style="display:block; margin:auto;" src="img/NetworkDiagram.png">
+                            <br />
+                            <br />
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-sx-12 column">
+                                    <div class="panel panel-success" style="max-width:400px;">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Gathered Facts</h3>
+                                        </div>
+                                        <div class="panel-body" style="background: #f9f9f9!important;">
+                                            <label for="adminNetNetwork">Admin Network</label>
+                                            <input id="adminNetNetwork" type="text" class="form-control dropdown-toggle" disabled placeholder="Network">
+                                            <label for="adminNetGateway">Admin Network Gateway</label>
+                                            <input id="adminNetGateway" type="text" class="form-control dropdown-toggle" disabled placeholder="Gateway">
+                                            <label for="adminNetNetmask">Admin Network Subnet Mask</label>
+                                            <input id="adminNetNetmask" type="text" class="form-control dropdown-toggle" disabled placeholder="Subnet Mask">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-sx-12 column">
+                                    <div class="panel panel-primary" style="max-width:400px;">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">User Defined Settings</h3>
+                                        </div>
+                                        <div class="panel-body" style="background: #f9f9f9!important;">
+                                            <label for="inputAdminNetAssignableStart">Admin Network Assignable : Start</label>
+                                            <input id="inputAdminNetAssignableStart" type="text" class="form-control dropdown-toggle" placeholder="Start">
+                                            <label for="inputAdminNetAssignableEnd">Admin Network Assignable : End</label>
+                                            <input id="inputAdminNetAssignableEnd" type="text" class="form-control dropdown-toggle" placeholder="End">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-pane sample-pane alert" data-step="4">
+                        <h4 class="myheadmid">LeoFS - The Lion of Storage</h4>
+                        <div>
+                            Project Fifo uses LeoFS as a central object based file system. LeoFS is an unstructured object storage for the web and a highly available, distributed, eventually consistent storage system. Project Fifo use LeoFS for storing VM datasets, snapshots and backups
+                            <br />
+                            <br />
+                            <img style="height:150px; display:block; margin:auto;" src="img/leofs-logo-blk-2.png">
+                            <br />
+                            <br />
+                            <div class="alert alert-warning alert-dismissible leoalert" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <b>Warning! </b> It is very important to <u>understand</u> the following settings. Once set, they can <b>never</b> be changed.
+                            </div>
+                            <br />
+                            <h4 class="myheadmid">LeoFS Consistency Settings</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped replexpl">
+                                    <colgroup>
+                                        <col class="col-xs-1">
+                                            <col class="col-xs-7">
+                                    </colgroup>
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                <b>Replicas</b><span>(N)</span>
+                                            </th>
+                                            <td>The total number of replicas of each file the LeoFS will store. Storage space requirements will be equal to number of replicas multiplied by total of file sizes. A 1G file will take 3G on disk when using a replica setting of 3.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <b>Read Replicas</b><span>(R)</span>
+                                            </th>
+                                            <td>The number of replicas needed for a successful <strong>READ</strong> operation.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <b>Write Replicas</b><span>(W)</span>
+                                            </th>
+                                            <td>The number of replicas needed for a successful <strong>WRITE</strong> operation.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <b>Delete Replicas</b><span>(D)</span>
+                                            </th>
+                                            <td>The number of replicas needed for a successful <strong>DELETE</strong> operation.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br />
+                            <br />
+                            <h4 class="myheadmid">Sample Consistency Settings</h4>
+                            <div style="max-width:400px; margin:auto;">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Consistency Level</th>
+                                            <th>N</th>
+                                            <th>R</th>
+                                            <th>W</th>
+                                            <th>D</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="active">
+                                            <th>Single Server</th>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Low</th>
+                                            <td>3</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr class="active">
+                                            <th>Medium</th>
+                                            <td>3</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <th>High</th>
+                                            <td>3</td>
+                                            <td>1</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <i>Single Server</i> settings should only be used when you intend on only having a single LeoFS and <b>never</b> expanding your cluster.
+                            </div>
+                            <br />
+                            <br />
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">Replicas (N)</div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">Read Replicas (R)</div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">Write Replicas (W)</div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">Delete Replicas (D)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">
+                                    <input id="inputLeoConsistancyReplicas" type="number" value="3">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">
+                                    <input id="inputLeoConsistancyReads" type="number" value="1">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">
+                                    <input id="inputLeoConsistancyWrites" type="number" value="2">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">
+                                    <input id="inputLeoConsistancyDeletes" type="number" value="2">
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <h4>LeoFS Storage Nodes</h4>
+                            <p>It is required to have at least one storage node. You may not have more storage nodes than you have hypervisors. Ideally the number of storage nodes is equal to or greater than the number of replicas stored, but this is not enforced.</p>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-sx-5 column">
+                                    <label for="inputLeoStorageNodes">Number of LeoFS Storage Nodes</label>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-sx-3 column">
+                                    <input id="inputLeoStorageNodes" type="number" value="1">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-sx-4 column"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-pane  sample-pane alert" data-step="5">
+                        <h4>Zone Security</h4>
+                        <p>In order to provision roles to newly created zones Leash needs a way to login. You can provide an ssh keyset (both public and private) or a keyset can be generated for you. If you have an existing keyset you may choose to use it, which will allow you to continue to login to the newly created zone via SSH after this installer completes. If you choose to have Leash create a keyset for you it will be destroyed and you will either have to add a public key to your Fifo user account, or login to zones via zlogin.</p>
+                        <div>
+                            <span style="font-weight: 700;">How do you authenticate to your hypervisors?</span>
+                            <div class="radio" data-initialize="radio" id="radioVMKeysetNew">
+                                <label class="radio-custom">
+                                    <input class="sr-only" data-toggle=".radioToggleNewKeyset" checked="checked" name="radioVMKeysetType" type="radio" value="newKeyset"> Generate New Keyset
+                                </label>
+                            </div>
+                            <div class="radio" data-initialize="radio" id="radioVMKeysetExisting">
+                                <label class="radio-custom">
+                                    <input class="sr-only" data-toggle=".radioToggleExistingKeyset" name="radioVMKeysetType" type="radio" value="existingKeyset"> Use Existing Keyset
+                                </label>
+                            </div>
+                        </div>
+                        <div class="radioToggleExistingKeyset">
+                            <br />
+                            <label for="inputKeysetPrivate">Private Key</label>
+                            <textarea rows="10" class="form-control" id="inputKeysetPrivate" placeholder="Private SSH Key"></textarea>
+                            <br />
+                            <label for="inputKeysetPrivate">Public Key</label>
+                            <textarea rows="10" class="form-control" id="inputKeysetPublic" placeholder="Public SSH Key"></textarea>
+                        </div>
+                        <div class="radioToggleNewKeyset">
+                        </div>
+                    </div>
+                    <div class="step-pane  sample-pane alert" data-step="6" id="defaultReviewWizardStep">
+                        <div id="reviewPaneMsg">
+                            <h4>Pre Installation Check</h4>
+                            <p>Based on the information you have provided Leash will now login to each hypervisor to check for communication and minimum requirements. If you at this point entered a private SSH key for your hypervisors it will be written to disk in the zone created for installation.
+                                <b>No changes will be made to your hypervisors.</b></p>
+                        </div>
+                        <div id="reviewPane">
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-sx-5 column"></div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-sx-2 column">
+                                    <button type="button" id="btnBeginCheck" class="btn btn-default">Begin Check</button>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-sx-5 column"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-pane  sample-pane alert" data-step="7">
+                        <div id="installationProgress" style="font-weight: bold;">
+                            <div class="loader" style="margin-left: auto; margin-right: auto;"></div>
+                        </div>
+                        <div id="leash-log-viewer" style="height: 300px; overflow: scroll;">
+                            <h3>Server Logs:</h3>
+                        </div>
+                    </div>
+                    <div class="actions pull-right">
+                        <button type="button" id="wizardButtonNext" class="btn btn-default btn-next" data-last="Install">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-1 col-sm-12 col-sx-12 column">&nbsp;</div>
+    </div>
     <!-- Include jQuery -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -307,6 +317,6 @@
     <script src="bower_components/fuelux/dist/js/fuelux.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/ansispan.js"></script>
+</body>
 
-  </body>
 </html>
